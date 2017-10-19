@@ -1,0 +1,13 @@
+#!/bin/sh
+# Change UID to the one from user
+set -e
+
+if [ `id -u nginx` != ${UID} ]; then
+	usermod -u ${UID} nginx
+fi
+if [ `id -g nginx` != ${GID} ]; then
+	groupmod -g ${GID} nginx
+fi
+
+# Call parent entrypoint
+exec "$@"
